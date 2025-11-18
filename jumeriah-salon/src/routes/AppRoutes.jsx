@@ -9,11 +9,12 @@ export default function AppRoutes() {
     <BrowserRouter>
       <Routes>
         {/* Main Layout Wrapper */}
+
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
           <Route path="contact" element={<Contact />} />
           {/* ⬇ All pages inside MainLayout */}
-          {/* <Route index element={<HomePage />} /> */}
+          <Route index element={<Home />} />
         </Route>
       </Routes>
     </BrowserRouter>
