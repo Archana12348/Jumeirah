@@ -119,8 +119,10 @@ export default function Header() {
 
   // 🔥 Scroll Effect
   useEffect(() => {
+    const bannerHeight = 630; // your banner height
+
     const handleScroll = () => {
-      if (window.scrollY > 580) {
+      if (window.scrollY > bannerHeight * 0.1) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
