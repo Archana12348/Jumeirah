@@ -13,7 +13,7 @@ export default function Button({
       onClick={onClick}
       disabled={disabled}
       className={`relative inline-flex items-center justify-center px-5 py-2.5
-        font-semibold text-white rounded-xl shadow-lg transition-all
+        font-semibold text-white rounded-full shadow-lg transition-all
         hover:-translate-y-1 active:translate-y-0
         focus:outline-none focus:ring-4 focus:ring-cyan-300/30
         disabled:opacity-50 disabled:cursor-not-allowed
