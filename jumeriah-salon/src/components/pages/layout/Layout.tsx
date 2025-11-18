@@ -1,10 +1,11 @@
 import { Outlet } from "react-router-dom";
-import Header from "../navbar/Header";
+import HeaderWrapper from "../navbar/HeaderWrapper"; // ← mobile+desktop header
 
 export default function MainLayout() {
   return (
     <div className="flex flex-col min-h-screen">
-      <Header />
+      {/* 🔥 Responsive Header */}
+      <HeaderWrapper />
 
       <main className="flex-grow">
         <Outlet />
