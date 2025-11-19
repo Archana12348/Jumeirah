@@ -168,7 +168,7 @@ export default function Header() {
 
             {/* CENTER LOGO */}
             <img
-              src="/logo/KY Without Moon final.png"
+              src="/logo/logo.png"
               alt="Logo"
               className={`mx-auto transition-all duration-500 ${
                 isScrolled ? "h-14" : "h-20"

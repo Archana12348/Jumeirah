@@ -41,7 +41,7 @@ export default function MobileHeader() {
           >
             {/* LOGO */}
             <img
-              src="/logo/KY Without Moon final.png"
+              src="/logo/logo.png"
               alt="Logo"
               className={`transition-all duration-300 ${
                 isScrolled ? "h-10" : "h-14"
