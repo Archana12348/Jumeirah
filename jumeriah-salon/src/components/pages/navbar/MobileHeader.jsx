@@ -132,7 +132,7 @@ export default function MobileHeader() {
         </ul>
 
         {/* BOOK APPOINTMENT BUTTON */}
-        <button className="mt-8 w-full bg-[#00CDE1] text-white py-3 rounded-lg font-semibold shadow-md hover:bg-[#00b5c8] transition">
+        <button className="mt-8 w-full bg-[#00CDE1] text-white py-3 rounded-lg font-semibold shadow-md hover:bg-[#00b5c8] transition animate-pulse">
           Book Appointment
         </button>
       </div>
