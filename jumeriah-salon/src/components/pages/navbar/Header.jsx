@@ -152,13 +152,15 @@ export default function Header() {
           {/* TOP BAR */}
           <div
             className={`w-full flex justify-between items-center px-6 transition-all duration-500 ${
-              isScrolled ? "py-2 text-[#d6b56b]" : "py-5 text-white"
+              isScrolled ? "py-2 text-black" : "py-5 text-white"
             }`}
           >
             {/* LEFT - Book Appointment */}
             <Button
               className={`text-sm font-medium bg-transparent transition-all ${
-                isScrolled ? "text-[#d6b56b]" : "text-white animate-pulse"
+                isScrolled
+                  ? "text-black animate-pulse"
+                  : "text-white animate-pulse"
               }`}
             >
               Book Appointment
@@ -179,14 +181,14 @@ export default function Header() {
                 <User
                   className={`w-5 h-5 transition ${
                     isScrolled
-                      ? "text-yellow-800"
+                      ? "text-black"
                       : "text-white group-hover:text-gray-300"
                   }`}
                 />
                 <span
                   className={`text-sm font-medium transition ${
                     isScrolled
-                      ? "text-yellow-800"
+                      ? "text-black"
                       : "text-white group-hover:text-gray-300"
                   }`}
                 >
@@ -196,16 +198,12 @@ export default function Header() {
 
               <Heart
                 className={`w-5 h-5 cursor-pointer transition ${
-                  isScrolled
-                    ? "text-yellow-800"
-                    : "text-white hover:text-gray-300"
+                  isScrolled ? "text-black" : "text-white hover:text-gray-300"
                 }`}
               />
               <ShoppingCart
                 className={`w-5 h-5 cursor-pointer transition ${
-                  isScrolled
-                    ? "text-yellow-800"
-                    : "text-white hover:text-gray-300"
+                  isScrolled ? "text-black" : "text-white hover:text-gray-300"
                 }`}
               />
             </div>
@@ -219,7 +217,7 @@ export default function Header() {
           >
             <ul
               className={`flex justify-center gap-10 py-3 font-medium text-sm uppercase tracking-wide transition ${
-                isScrolled ? "text-yellow-800" : "text-white"
+                isScrolled ? "text-black" : "text-white"
               }`}
             >
               {[
@@ -238,7 +236,7 @@ export default function Header() {
 
                   <span
                     className={`absolute left-0 -bottom-1 w-0 h-[2px] transition-all duration-300 group-hover:w-full ${
-                      isScrolled ? "bg-yellow-800" : "bg-white"
+                      isScrolled ? "bg-black" : "bg-white"
                     }`}
                   ></span>
                 </li>
