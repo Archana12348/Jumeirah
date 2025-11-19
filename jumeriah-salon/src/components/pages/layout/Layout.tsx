@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import HeaderWrapper from "../navbar/HeaderWrapper"; // ← mobile+desktop header
+import FooterPage from "../navbar/Footer";
 
 export default function MainLayout() {
   return (
@@ -10,6 +11,7 @@ export default function MainLayout() {
       <main className="flex-grow">
         <Outlet />
       </main>
+      <FooterPage />
     </div>
   );
 }
