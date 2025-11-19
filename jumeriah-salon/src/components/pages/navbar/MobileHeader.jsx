@@ -1,10 +1,18 @@
 import { useState, useEffect } from "react";
-import { User, Heart, ShoppingCart, Menu, X } from "lucide-react";
+import { User, Heart, ShoppingCart, Menu, Wallet, X } from "lucide-react";
 import Button from "../../common/Button";
+import { useNavigate } from "react-router-dom";
 
 export default function MobileHeader() {
+  const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [userName, setUserName] = useState("Rahul"); // <-- FIXED // Simulated login state
+  const [wishlistCount, setWishlistCount] = useState(3);
+  const [cartCount, setCartCount] = useState(2);
+  const [walletBalance, setWalletBalance] = useState(520);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   // 🔥 Scroll Effect
   useEffect(() => {
@@ -17,6 +25,13 @@ export default function MobileHeader() {
 
   // 🟦 Close on clicking outside
   const closeSidebar = () => setOpen(false);
+  const handleUserClick = () => {
+    if (!isLoggedIn) {
+      navigate("/login");
+    } else {
+      setDropdownOpen(!dropdownOpen);
+    }
+  };
 
   return (
     <>
@@ -49,26 +64,110 @@ export default function MobileHeader() {
             />
 
             {/* ICONS */}
-            <div className="flex items-center gap-4">
-              <User
-                size={22}
-                className={`transition ${
-                  isScrolled ? "text-yellow-800" : "text-white"
-                }`}
-              />
-              <Heart
-                size={22}
-                className={`transition ${
-                  isScrolled ? "text-yellow-800" : "text-white"
-                }`}
-              />
-              <ShoppingCart
-                size={22}
-                className={`transition ${
-                  isScrolled ? "text-yellow-800" : "text-white"
-                }`}
-              />
+            <div className="flex items-center gap-4 relative">
+              {/* USER ICON + USERNAME */}
+              <div
+                onClick={handleUserClick}
+                className="flex items-center gap-1 cursor-pointer"
+              >
+                <User
+                  size={22}
+                  className={`transition ${
+                    isScrolled ? "text-yellow-800" : "text-white"
+                  }`}
+                />
 
+                {/* USERNAME */}
+                {isLoggedIn && (
+                  <span
+                    className={`
+          ${
+            isScrolled ? "text-yellow-800" : "text-white"
+          } text-[20px] font-medium
+        `}
+                  >
+                    {userName}
+                  </span>
+                )}
+              </div>
+
+              {/* USER DROPDOWN */}
+              {dropdownOpen && isLoggedIn && (
+                <div
+                  className="absolute top-9 left-0 ml-[-35px] bg-white rounded-xl p-2 w-40 z-50 shadow-xl
+                 transition-all duration-300 ease-in-out"
+                >
+                  <p
+                    className="py-2 px-3 text-center text-black cursor-pointer rounded-lg 
+                   transition duration-300 ease-in-out
+                   hover:shadow-[0_3px_3px_rgba(0,0,0,0.25)]"
+                    onClick={() => navigate("/dashboard")}
+                  >
+                    Dashboard
+                  </p>
+
+                  <p
+                    className="py-2 px-3 text-center text-black cursor-pointer rounded-lg 
+                   transition duration-300 ease-in-out
+                   hover:shadow-[0_3px_3px_rgba(0,0,0,0.25)]"
+                    onClick={() => navigate("/orders")}
+                  >
+                    Orders
+                  </p>
+
+                  <p
+                    className="py-2 px-3 text-center text-red-600 cursor-pointer rounded-lg 
+                   transition duration-300 ease-in-out
+                   hover:shadow-[0_3px_3px_rgba(255,0,0,0.35)]"
+                    onClick={() => setIsLoggedIn(false)}
+                  >
+                    Logout
+                  </p>
+                </div>
+              )}
+
+              {/* HEART ICON + COUNT */}
+              <div className="relative">
+                <Heart
+                  size={22}
+                  className={`transition ${
+                    isScrolled ? "text-yellow-800" : "text-white"
+                  }`}
+                />
+
+                <span className="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] px-1 py-[1px] rounded-full">
+                  {wishlistCount}
+                </span>
+              </div>
+
+              {/* CART ICON + COUNT */}
+              <div className="relative">
+                <ShoppingCart
+                  size={22}
+                  className={`transition ${
+                    isScrolled ? "text-yellow-800" : "text-white"
+                  }`}
+                />
+
+                <span className="absolute -top-2 -right-2 bg-yellow-500 text-black text-[10px] px-1 py-[1px] rounded-full">
+                  {cartCount}
+                </span>
+              </div>
+              {/* Wallet ICON + COUNT */}
+              <div className="relative">
+                <Wallet
+                  size={22}
+                  className={`transition ${
+                    isScrolled ? "text-yellow-800" : "text-white"
+                  }`}
+                />
+
+                <span className="absolute -top-2 -right-2 bg-green-500 text-black text-[10px] px-1 py-[1px] rounded-full">
+                  {walletBalance}
+                </span>
+              </div>
+
+              {/* MENU */}
               <Menu
                 size={28}
                 onClick={() => setOpen(true)}
