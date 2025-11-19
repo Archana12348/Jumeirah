@@ -111,18 +111,24 @@
 // }
 
 import { useState, useEffect } from "react";
-import { User, Heart, ShoppingCart } from "lucide-react";
+import { User, Heart, ShoppingCart, Wallet } from "lucide-react";
 import Button from "../../common/Button";
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
+  const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [userName, setUserName] = useState("Rahul"); // <-- FIXED // Simulated login state
+  const [wishlistCount, setWishlistCount] = useState(3);
+  const [cartCount, setCartCount] = useState(2);
+  const [walletBalance, setWalletBalance] = useState(520);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   // 🔥 Scroll Effect
   useEffect(() => {
-    const bannerHeight = 630; // your banner height
-
     const handleScroll = () => {
-      if (window.scrollY > bannerHeight * 0.1) {
+      if (window.scrollY > 580) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
@@ -132,6 +138,14 @@ export default function Header() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleUserClick = () => {
+    if (!isLoggedIn) {
+      navigate("/login");
+    } else {
+      setDropdownOpen(!dropdownOpen);
+    }
+  };
 
   return (
     <>
@@ -152,15 +166,13 @@ export default function Header() {
           {/* TOP BAR */}
           <div
             className={`w-full flex justify-between items-center px-6 transition-all duration-500 ${
-              isScrolled ? "py-2 text-black" : "py-5 text-white"
+              isScrolled ? "py-2 text-[#d6b56b]" : "py-5 text-white"
             }`}
           >
             {/* LEFT - Book Appointment */}
             <Button
               className={`text-sm font-medium bg-transparent transition-all ${
-                isScrolled
-                  ? "text-black animate-pulse"
-                  : "text-white animate-pulse"
+                isScrolled ? "text-[#d6b56b]" : "text-white animate-pulse"
               }`}
             >
               Book Appointment
@@ -176,36 +188,145 @@ export default function Header() {
             />
 
             {/* RIGHT ICONS */}
-            <div className="flex items-center gap-10">
-              <div className="flex items-center gap-2 cursor-pointer group">
+            <div className="relative flex items-center gap-2 pr-2">
+              {/* USER */}
+              <div
+                onClick={handleUserClick}
+                className="flex items-center gap-1 cursor-pointer group  rounded-3xl relative"
+              >
                 <User
-                  className={`w-5 h-5 transition ${
+                  className={`w-8 h-8 transition ${
                     isScrolled
-                      ? "text-black"
+                      ? "text-yellow-800 "
                       : "text-white group-hover:text-gray-300"
                   }`}
                 />
-                <span
-                  className={`text-sm font-medium transition ${
-                    isScrolled
-                      ? "text-black"
-                      : "text-white group-hover:text-gray-300"
-                  }`}
+
+                {/* USERNAME WHEN LOGGED IN */}
+                {isLoggedIn && (
+                  <span
+                    className={`text-sm font-medium transition ${
+                      isScrolled
+                        ? "text-yellow-800"
+                        : "text-white group-hover:text-gray-300"
+                    } pr-[11px] text-[20px]`}
+                  >
+                    {userName}
+                  </span>
+                )}
+              </div>
+
+              {/* USER DROPDOWN */}
+              {dropdownOpen && isLoggedIn && (
+                <div
+                  className="absolute top-9 ml-[-35px] bg-white rounded-xl p-1 w-40 z-50 shadow-xl 
+               transition-all duration-300 ease-in-out"
                 >
-                  My Account
+                  {/* DASHBOARD */}
+                  <p
+                    className="py-2 px-3 text-center text-black cursor-pointer rounded-lg 
+                 transition duration-300 ease-in-out
+                 hover:shadow-[0_3px_3px_rgba(0,0,0,0.25)]"
+                    onClick={() => navigate("/dashboard")}
+                  >
+                    Dashboard
+                  </p>
+
+                  {/* ORDERS */}
+                  <p
+                    className="py-2 px-3 text-center text-black cursor-pointer rounded-lg 
+                 transition duration-300 ease-in-out
+                 hover:shadow-[0_3px_3px_rgba(0,0,0,0.25)]"
+                    onClick={() => navigate("/orders")}
+                  >
+                    Orders
+                  </p>
+
+                  {/* LOGOUT */}
+                  <p
+                    className="py-2 px-3 text-center text-red-600 cursor-pointer rounded-lg 
+                 transition duration-300 ease-in-out
+                  hover:shadow-[0_4px_6px_rgba(255,0,0,0.4)]"
+                    onClick={() => setIsLoggedIn(false)}
+                  >
+                    Logout
+                  </p>
+                </div>
+              )}
+
+              {/* USER DROPDOWN */}
+              {/* {dropdownOpen && isLoggedIn && (
+                <div className="absolute top-14 left-0 bg-white shadow-lg rounded-xl p-4 w-40 z-50">
+                  <p
+                    className="py-2 cursor-pointer text-black hover:bg-gray-100 rounded-lg"
+                    onClick={() => navigate("/dashboard")}
+                  >
+                    Dashboard
+                  </p>
+
+                  <p
+                    className="py-2 cursor-pointer text-black hover:bg-gray-100 rounded-lg"
+                    onClick={() => navigate("/orders")}
+                  >
+                    Orders
+                  </p>
+
+                  <p
+                    className="py-2 cursor-pointer text-red-700 shadow-2xl hover:bg-gray-100 rounded-lg"
+                    onClick={() => setIsLoggedIn(false)}
+                  >
+                    Logout
+                  </p>
+                </div>
+              )} */}
+
+              {/* WISHLIST */}
+              <div className="relative">
+                <Heart
+                  className={`w-8 h-8 cursor-pointer transition  ${
+                    isScrolled
+                      ? "text-yellow-800"
+                      : "text-white hover:text-gray-300"
+                  }`}
+                />
+
+                {/* WISHLIST COUNT BADGE */}
+                <span className="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] px-1.5 py-0.5 rounded-full">
+                  {wishlistCount}
                 </span>
               </div>
 
-              <Heart
-                className={`w-5 h-5 cursor-pointer transition ${
-                  isScrolled ? "text-black" : "text-white hover:text-gray-300"
-                }`}
-              />
-              <ShoppingCart
-                className={`w-5 h-5 cursor-pointer transition ${
-                  isScrolled ? "text-black" : "text-white hover:text-gray-300"
-                }`}
-              />
+              {/* CART */}
+              <div className="relative">
+                <ShoppingCart
+                  className={`w-8 h-8 cursor-pointer transition  ${
+                    isScrolled
+                      ? "text-yellow-800"
+                      : "text-white hover:text-gray-300"
+                  }`}
+                />
+
+                {/* CART COUNT BADGE */}
+                <span className="absolute -top-2 -right-2 bg-yellow-500 text-black text-[10px] px-1.5 py-0.5 rounded-full">
+                  {cartCount}
+                </span>
+              </div>
+
+              {/* WALLET */}
+              <div className="relative">
+                <Wallet
+                  className={`w-8 h-8 cursor-pointer transition  ${
+                    isScrolled
+                      ? "text-yellow-800"
+                      : "text-white hover:text-gray-300"
+                  }`}
+                />
+
+                {/* WALLET BALANCE */}
+                <span className="absolute -top-2 -right-3 bg-green-600 text-white text-[10px] px-1.5 py-0.5 rounded-full">
+                  ₹{walletBalance}
+                </span>
+              </div>
             </div>
           </div>
 
@@ -217,7 +338,7 @@ export default function Header() {
           >
             <ul
               className={`flex justify-center gap-10 py-3 font-medium text-sm uppercase tracking-wide transition ${
-                isScrolled ? "text-black" : "text-white"
+                isScrolled ? "text-yellow-800" : "text-white"
               }`}
             >
               {[
@@ -236,7 +357,7 @@ export default function Header() {
 
                   <span
                     className={`absolute left-0 -bottom-1 w-0 h-[2px] transition-all duration-300 group-hover:w-full ${
-                      isScrolled ? "bg-black" : "bg-white"
+                      isScrolled ? "bg-yellow-800" : "bg-white"
                     }`}
                   ></span>
                 </li>
