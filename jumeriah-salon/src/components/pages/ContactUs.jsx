@@ -64,8 +64,8 @@ export default function ContactPage() {
           </div>
         </div>
       </div>
-      {/* <WorkingHoursPage />
-      <ServicesPage /> */}
+      <WorkingHoursPage />
+      <ServicesPage />
       <Festival />
       <GallerySection />
       <LocationsSection />
