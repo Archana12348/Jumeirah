@@ -7,10 +7,26 @@ import Button from "../../common/Button";
 
 export default function SalonSection() {
   return (
-    <section className="w-full bg-gradient-to-b from-white to-[#00CED1] py-20 px-6 lg:px-16">
+    <section className="w-full bg-gradient-to-b from-white to-[#00CED1] py-20  ">
+      {/* TOP HEADING BLOCK */}
+      <div className="text-center mb-12">
+        <p
+          className="tracking-widest text-black font-semibold text-xs whitespace-nowrap"
+          style={{ fontFamily: "Scheherazade New" }}
+        >
+          EVERY PERSON IS AN INDIVIDUAL
+        </p>
+
+        <h1
+          className="text-3xl md:text-4xl font-bold leading-tight text-black mt-2"
+          style={{ fontFamily: "Scheherazade New" }}
+        >
+          WE TAKE GREAT PRIDE IN OUR CRAFT
+        </h1>
+      </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 items-center">
         {/* LEFT IMAGE SLIDER */}
-        <div className="w-full mt-10 lg:mt-16 flex justify-center">
+        <div className="w-full mt-10 lg:-mt-12 flex justify-center">
           <Swiper
             modules={[Autoplay]}
             autoplay={{ delay: 2500, disableOnInteraction: false }}
@@ -44,14 +60,6 @@ export default function SalonSection() {
 
         {/* CENTER CONTENT */}
         <div className="text-white space-y-6 flex flex-col items-center text-center">
-          <small className="tracking-widest text-black font-semibold text-xs">
-            EVERY PERSON IS AN INDIVIDUAL
-          </small>
-
-          <h1 className="text-4xl lg:text-5xl font-bold leading-tight text-black">
-            WE TAKE GREAT PRIDE <br /> IN OUR CRAFT
-          </h1>
-
           <video
             className="w-[90%] h-[320px] lg:h-[450px] rounded-xl border border-white object-cover shadow-xl"
             autoPlay
@@ -80,7 +88,7 @@ export default function SalonSection() {
         </div>
 
         {/* RIGHT IMAGE SLIDER */}
-        <div className="w-full mt-10 lg:mt-16 flex justify-center">
+        <div className="w-full mt-10 lg:-mt-12 flex justify-center">
           <Swiper
             modules={[Autoplay]}
             autoplay={{ delay: 2500, disableOnInteraction: false }}

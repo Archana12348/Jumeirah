@@ -32,14 +32,14 @@
 //             {/* RIGHT - Icons */}
 //             <div className="flex items-center gap-10 text-white">
 //               <div className="flex items-center gap-2 cursor-pointer group">
-//                 <User className="w-5 h-5 group-hover:text-gray-300" />
+//                 <User className="w-6 h-6 group-hover:text-gray-300" />
 //                 <span className="text-sm font-medium group-hover:text-gray-300">
 //                   My Account
 //                 </span>
 //               </div>
 
-//               <Heart className="w-5 h-5 cursor-pointer hover:text-gray-300" />
-//               <ShoppingCart className="w-5 h-5 cursor-pointer hover:text-gray-300" />
+//               <Heart className="w-6 h-6 cursor-pointer hover:text-gray-300" />
+//               <ShoppingCart className="w-6 h-6 cursor-pointer hover:text-gray-300" />
 //             </div>
 //           </div>
 
@@ -110,10 +110,11 @@
 //   );
 // }
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { User, Heart, ShoppingCart, Wallet } from "lucide-react";
 import Button from "../../common/Button";
 import { useNavigate } from "react-router-dom";
+import LoginDrawer from "../../drawer/LoginDrawer";
 
 export default function Header() {
   const navigate = useNavigate();
@@ -124,11 +125,15 @@ export default function Header() {
   const [cartCount, setCartCount] = useState(2);
   const [walletBalance, setWalletBalance] = useState(520);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
-  // 🔥 Scroll Effect
+  //  Scroll Effect
   useEffect(() => {
+    const bannerHeight = 630; // your banner height
+
     const handleScroll = () => {
-      if (window.scrollY > 580) {
+      if (window.scrollY > bannerHeight * 0.1) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
@@ -141,26 +146,39 @@ export default function Header() {
 
   const handleUserClick = () => {
     if (!isLoggedIn) {
-      navigate("/login");
+      setDrawerOpen(true); // 👈 DRAWER OPEN
     } else {
-      setDropdownOpen(!dropdownOpen);
+      setDropdownOpen(!dropdownOpen); // Existing dropdown
     }
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false); // close dropdown
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <>
       {/* HERO BANNER */}
-      <div className="relative w-full h-[630px] ">
-        <img
-          src="/Capture.PNG"
-          alt="Banner"
-          className="w-full h-full object-cover object-center"
-        />
-
+      <div
+        className="relative w-full h-[630px] bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('/banner2.jpg')`,
+        }}
+      >
         {/* HEADER */}
         <header
           className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
-            isScrolled ? "bg-[#00CDE1]" : "bg-transparent translate-y-2"
+            isScrolled ? "bg-black" : "bg-transparent translate-y-2"
           }`}
         >
           {/* TOP BAR */}
@@ -172,10 +190,12 @@ export default function Header() {
             {/* LEFT - Book Appointment */}
             <Button
               className={`text-sm font-medium bg-transparent transition-all ${
-                isScrolled ? "text-[#d6b56b]" : "text-white animate-pulse"
+                isScrolled
+                  ? "text-[#d6b56b] animate-pulse"
+                  : "text-white animate-pulse"
               }`}
             >
-              Book Appointment
+              Book An Appointment
             </Button>
 
             {/* CENTER LOGO */}
@@ -188,16 +208,22 @@ export default function Header() {
             />
 
             {/* RIGHT ICONS */}
-            <div className="relative flex items-center gap-2 pr-2">
+            <div
+              className={`relative flex items-center gap-6 pr-2${
+                isScrolled
+                  ? "bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-600 text-transparent bg-clip-text"
+                  : "text-white group-hover:text-gray-300"
+              }`}
+            >
               {/* USER */}
               <div
                 onClick={handleUserClick}
                 className="flex items-center gap-1 cursor-pointer group  rounded-3xl relative"
               >
                 <User
-                  className={`w-8 h-8 transition ${
+                  className={`w-6 h-6 transition ${
                     isScrolled
-                      ? "text-yellow-800 "
+                      ? "text-yellow-600 "
                       : "text-white group-hover:text-gray-300"
                   }`}
                 />
@@ -207,7 +233,7 @@ export default function Header() {
                   <span
                     className={`text-sm font-medium transition ${
                       isScrolled
-                        ? "text-yellow-800"
+                        ? "bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-600 text-transparent bg-clip-text"
                         : "text-white group-hover:text-gray-300"
                     } pr-[11px] text-[20px]`}
                   >
@@ -219,73 +245,44 @@ export default function Header() {
               {/* USER DROPDOWN */}
               {dropdownOpen && isLoggedIn && (
                 <div
-                  className="absolute top-9 ml-[-35px] bg-white rounded-xl p-1 w-40 z-50 shadow-xl 
-               transition-all duration-300 ease-in-out"
+                  ref={dropdownRef}
+                  className="absolute top-9 left-1/4 -translate-x-1/2 bg-white rounded-2xl p-2 w-48 
+                  z-50 shadow-[0_4px_15px_rgba(0,0,0,0.15)] transition-all duration-300 ease-in-out"
                 >
-                  {/* DASHBOARD */}
-                  <p
-                    className="py-2 px-3 text-center text-black cursor-pointer rounded-lg 
-                 transition duration-300 ease-in-out
-                 hover:shadow-[0_3px_3px_rgba(0,0,0,0.25)]"
-                    onClick={() => navigate("/dashboard")}
-                  >
-                    Dashboard
-                  </p>
-
-                  {/* ORDERS */}
-                  <p
-                    className="py-2 px-3 text-center text-black cursor-pointer rounded-lg 
-                 transition duration-300 ease-in-out
-                 hover:shadow-[0_3px_3px_rgba(0,0,0,0.25)]"
-                    onClick={() => navigate("/orders")}
-                  >
-                    Orders
-                  </p>
-
-                  {/* LOGOUT */}
-                  <p
-                    className="py-2 px-3 text-center text-red-600 cursor-pointer rounded-lg 
-                 transition duration-300 ease-in-out
-                  hover:shadow-[0_4px_6px_rgba(255,0,0,0.4)]"
-                    onClick={() => setIsLoggedIn(false)}
-                  >
-                    Logout
-                  </p>
+                  {[
+                    {
+                      label: "Dashboard",
+                      action: () => navigate("/dashboard"),
+                    },
+                    { label: "Orders", action: () => navigate("/orders") },
+                    {
+                      label: "Logout",
+                      action: () => setIsLoggedIn(false),
+                      red: true,
+                    },
+                  ].map((item, index) => (
+                    <p
+                      key={index}
+                      onClick={item.action}
+                      className={`py-2 px-4 my-1 text-center cursor-pointer rounded-lg text-sm font-medium
+                                  transition-all duration-300 ease-in-out
+                                  hover:bg-[#00CED1] hover:text-white
+                                  ${item.red ? "text-red-600" : "text-black"}`}
+                    >
+                      {item.label}
+                    </p>
+                  ))}
                 </div>
               )}
 
               {/* USER DROPDOWN */}
-              {/* {dropdownOpen && isLoggedIn && (
-                <div className="absolute top-14 left-0 bg-white shadow-lg rounded-xl p-4 w-40 z-50">
-                  <p
-                    className="py-2 cursor-pointer text-black hover:bg-gray-100 rounded-lg"
-                    onClick={() => navigate("/dashboard")}
-                  >
-                    Dashboard
-                  </p>
-
-                  <p
-                    className="py-2 cursor-pointer text-black hover:bg-gray-100 rounded-lg"
-                    onClick={() => navigate("/orders")}
-                  >
-                    Orders
-                  </p>
-
-                  <p
-                    className="py-2 cursor-pointer text-red-700 shadow-2xl hover:bg-gray-100 rounded-lg"
-                    onClick={() => setIsLoggedIn(false)}
-                  >
-                    Logout
-                  </p>
-                </div>
-              )} */}
 
               {/* WISHLIST */}
               <div className="relative">
                 <Heart
-                  className={`w-8 h-8 cursor-pointer transition  ${
+                  className={`w-6 h-6 cursor-pointer transition  ${
                     isScrolled
-                      ? "text-yellow-800"
+                      ? "text-yellow-600"
                       : "text-white hover:text-gray-300"
                   }`}
                 />
@@ -299,15 +296,15 @@ export default function Header() {
               {/* CART */}
               <div className="relative">
                 <ShoppingCart
-                  className={`w-8 h-8 cursor-pointer transition  ${
+                  className={`w-6 h-6 cursor-pointer transition  ${
                     isScrolled
-                      ? "text-yellow-800"
+                      ? "text-yellow-600"
                       : "text-white hover:text-gray-300"
                   }`}
                 />
 
                 {/* CART COUNT BADGE */}
-                <span className="absolute -top-2 -right-2 bg-yellow-500 text-black text-[10px] px-1.5 py-0.5 rounded-full">
+                <span className="absolute -top-2 -right-2 bg-yellow-600 text-black text-[10px] px-1.5 py-0.5 rounded-full">
                   {cartCount}
                 </span>
               </div>
@@ -315,9 +312,9 @@ export default function Header() {
               {/* WALLET */}
               <div className="relative">
                 <Wallet
-                  className={`w-8 h-8 cursor-pointer transition  ${
+                  className={`w-6 h-6 cursor-pointer transition  ${
                     isScrolled
-                      ? "text-yellow-800"
+                      ? "text-yellow-600"
                       : "text-white hover:text-gray-300"
                   }`}
                 />
@@ -327,18 +324,25 @@ export default function Header() {
                   ₹{walletBalance}
                 </span>
               </div>
+
+              <LoginDrawer
+                open={drawerOpen}
+                onClose={() => setDrawerOpen(false)}
+              />
             </div>
           </div>
 
           {/* NAVIGATION */}
           <nav
             className={`w-full transition-all duration-500 ${
-              isScrolled ? "bg-[#00CDE1]" : "bg-transparent translate-y-2"
+              isScrolled ? "bg-black" : "bg-transparent translate-y-2"
             }`}
           >
             <ul
               className={`flex justify-center gap-10 py-3 font-medium text-sm uppercase tracking-wide transition ${
-                isScrolled ? "text-yellow-800" : "text-white"
+                isScrolled
+                  ? "bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-600 text-transparent bg-clip-text"
+                  : "text-white"
               }`}
             >
               {[
@@ -351,13 +355,17 @@ export default function Header() {
               ].map((item) => (
                 <li
                   key={item}
-                  className="cursor-pointer relative group transition"
+                  className={`cursor-pointer relative group transition  ${
+                    isScrolled
+                      ? "bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-600 text-transparent bg-clip-text"
+                      : "bg-transparent"
+                  }`}
                 >
                   {item}
 
                   <span
                     className={`absolute left-0 -bottom-1 w-0 h-[2px] transition-all duration-300 group-hover:w-full ${
-                      isScrolled ? "bg-yellow-800" : "bg-white"
+                      isScrolled ? "bg-yellow-600" : "bg-white"
                     }`}
                   ></span>
                 </li>
@@ -368,8 +376,15 @@ export default function Header() {
 
         {/* CENTER HERO TEXT */}
         <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-6">
-          <h1 className="text-6xl font-bold drop-shadow-xl fade-animate">
-            La Vie Jumierah
+          <h1
+            className="text-6xl font-bold fade-animate
+             bg-gradient-to-r from-white via-[#20F6FF] to-white
+             bg-clip-text text-transparent
+             drop-shadow-[0_0_15px_#20F6FF]
+             drop-shadow-[0_0_25px_#20F6FF]"
+            style={{ fontFamily: "Scheherazade New" }}
+          >
+            La Vie Jumeirah
           </h1>
 
           <AnimatedTagline />
@@ -384,19 +399,25 @@ export default function Header() {
 /* -------------------------------------------------------- */
 
 function AnimatedTagline() {
-  const lines = ["Elevate Your Style", "Radiate Power", "Unleash Your Glamour"];
+  const lines = ["Maison De Beaute"];
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % lines.length);
     }, 3000);
-
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <p className="text-lg justify-center font-semibold mt-4 h-14 transition-all duration-700 ease-in-out drop-shadow-lg fade-animate">
+    <p
+      className="text-xl font-semibold mt-4 h-14 fade-animate
+             bg-gradient-to-r from-white via-[#20F6FF] to-white
+             bg-clip-text text-transparent
+             drop-shadow-[0_0_10px_#20F6FF]
+             drop-shadow-[0_0_20px_#20F6FF]"
+      style={{ fontFamily: "Scheherazade New" }}
+    >
       {lines[index]}
     </p>
   );
