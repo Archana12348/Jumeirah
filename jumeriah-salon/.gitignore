@@ -1,6 +1,3 @@
-# =========================
-# GLOBAL
-# =========================
 # Logs
 logs
 *.log
@@ -10,89 +7,18 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# OS Files
-.DS_Store
-Thumbs.db
+node_modules
+dist
+dist-ssr
+*.local
 
-# Editor settings
+# Editor directories and files
 .vscode/*
 !.vscode/extensions.json
-.idea/
+.idea
+.DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
-
-# =========================
-# NODE / REACT FRONTEND
-# =========================
-node_modules/
-dist/
-dist-ssr/
-build/
-.cache/
-.parcel-cache/
-.eslintcache
-
-# Environment variables
-.env
-.env.*.local
-*.local
-
-# Coverage
-coverage/
-*.lcov
-
-# =========================
-# LARAVEL BACKEND
-# =========================
-
-# Laravel vendor
-/vendor/
-
-# Laravel environment
-.env
-.env.backup
-.env.*.backup
-
-# Laravel cache
-bootstrap/cache/*
-!bootstrap/cache/.gitignore
-
-# Laravel storage
-storage/*
-!storage/app
-!storage/app/public
-!storage/framework
-!storage/framework/cache
-!storage/framework/cache/data
-!storage/framework/sessions
-!storage/framework/views
-!storage/framework/testing
-!storage/logs
-!storage/*.gitignore
-
-# Node built assets from Laravel Mix/Vite
-public/build/
-public/hot
-public/storage
-public/mix-manifest.json
-
-# Composer
-/vendor/
-composer.lock
-
-# PHPUnit
-.phpunit.result.cache
-
-# =========================
-# OTHER COMMON
-# =========================
-
-# Ignore local IDE config
-*.iml
-
-# Node package-lock before commit (optional)
-package-lock.json
-
