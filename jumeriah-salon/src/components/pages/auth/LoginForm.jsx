@@ -1,61 +1,165 @@
 "use client";
 
-export default function LoginForm({ goSignup }) {
+import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
+import Swal from "sweetalert2";
+import "sweetalert2/dist/sweetalert2.min.css";
+
+export default function LoginForm({ goSignup, goForgetPassword }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    if (!email.includes("@")) {
+      Swal.fire({
+        toast: true,
+        position: "top-end",
+        icon: "error",
+        title: "Enter a valid email",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+      });
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const res = await fetch("http://localhost:8000/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+      console.log("DATA", data.status);
+
+      // 🔥🔥 IMPORTANT FIX 🔥🔥
+      if (data.status !== true) {
+        console.log("data value", data.success !== "true");
+        debugger;
+        Swal.fire({
+          icon: "error",
+          title: "Login Failed",
+          text: data.message || "Invalid credentials",
+        });
+        setLoading(false);
+        return;
+      } else {
+        // SUCCESS MESSAGE
+        Swal.fire({
+          icon: "success",
+          title: `Welcome ${data.data?.name || data.name}!`,
+          text: data.message || "Login Successful",
+        });
+      }
+
+      // Save token if exists
+      if (data.token) {
+        localStorage.setItem("token", data.token);
+      }
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Something went wrong!",
+      });
+    }
+
+    setLoading(false);
+  };
+
   return (
-    <div
-      className="w-full flex flex-col items-center mt-10"
-      style={{ fontFamily: "'Cairo', sans-serif" }}
-    >
-      {/* Welcome Message */}
-      <h2
-        className="text-2xl font-bold  mb-6 text-center bg-gradient-to-r from-[#00CED1] via-white-400 to-gray-800 text-transparent bg-clip-text"
-        style={{ fontFamily: "Scheherazade New" }}
+    <div className="w-full flex flex-col items-center mt-20 px-4 sm:px-6 md:px-0">
+      <div
+        className="border-[#00CED1]-2 p-6 sm:p-12 pb-16 sm:pb-24 pt-8 sm:pt-10 w-full sm:w-3/4 md:w-1/2 lg:w-1/3 rounded-2xl shadow-[0_25px_50px_rgba(0,206,209,0.4)] hover:shadow-[0_35px_60px_rgba(0,206,209,0.5)] transition-shadow duration-300 bg-white"
+        style={{ fontFamily: "'Cairo', sans-serif" }}
       >
-        Welcome Back! Login to Continue
-      </h2>
-
-      {/* Form */}
-      <div className="flex flex-col gap-4 w-full max-w-md">
-        {/* Email */}
-        <label className="text-sm font-semibold text-gray-700">Email</label>
-        <input
-          type="email"
-          placeholder="Enter your email"
-          className="border rounded-lg placeholder:text-gray-500 px-3 py-2 w-full border-[#00CED1] outline-none"
-        />
-
-        {/* Password */}
-        <label className="text-sm font-semibold text-gray-700">Password</label>
-        <input
-          type="password"
-          placeholder="Enter your password"
-          className="border rounded-lg px-3 py-2 w-full placeholder:text-gray-500 border-[#00CED1] outline-none"
-        />
-
-        {/* Forgot Password */}
-        <p className="text-sm text-right text-[#00CED1] cursor-pointer hover:underline mt-[-6px]">
-          Forgot Password?
-        </p>
-
-        {/* Login button */}
-        <button
-          className="w-full bg-[#00CED1] bg-gradient-to-r from-[#00CED1] to-black
-      text-white scale-[1.03]
-      hover:border-[#00CED1]/70  font-semibold py-2 rounded-lg hover:bg-[#0fbec4] transition"
+        <h2
+          className="text-center mb-6"
+          style={{ fontFamily: "Scheherazade New" }}
         >
-          Login
-        </button>
-
-        {/* Signup switch */}
-        <p className="text-center text-sm mt-4 text-black">
-          Don't have an account?{" "}
-          <span
-            onClick={goSignup}
-            className="text-[#00CED1] cursor-pointer font-semibold"
-          >
-            Sign Up
+          <span className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-[#00CED1] via-white-400 to-gray-800 text-transparent bg-clip-text">
+            Welcome Back!
           </span>
-        </p>
+          <br />
+          <span className="text-2xl sm:text-3xl font-medium text-gray-800">
+            Login to Continue
+          </span>
+        </h2>
+
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col gap-2 w-full max-w-md mx-auto"
+        >
+          {/* Email */}
+          <label className="text-sm sm:text-base font-semibold text-gray-700">
+            Email <span className="text-red-600">*</span>
+          </label>
+          <input
+            type="email"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="border rounded-xl placeholder:text-gray-500 px-3 py-2 w-full border-[#00CED1] outline-none"
+          />
+
+          {/* Password */}
+          <label className="text-sm sm:text-base font-semibold text-gray-700">
+            Password <span className="text-red-600">*</span>
+          </label>
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="border rounded-xl px-3 py-2 w-full placeholder:text-gray-500 border-[#00CED1] outline-none"
+            />
+            <span
+              className="absolute right-3 top-2.5 cursor-pointer text-gray-500"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </span>
+          </div>
+
+          {/* Forgot Password */}
+          <p
+            onClick={goForgetPassword}
+            className="text-sm sm:text-base text-right text-[#00CED1] cursor-pointer hover:underline mt-[6px]"
+          >
+            Forgot Password?
+          </p>
+
+          {/* Login button */}
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-gradient-to-r from-[#00CED1] to-black text-white scale-[1.03] font-semibold py-2 sm:py-3 rounded-xl transition hover:opacity-90 mt-2 cursor-pointer"
+          >
+            {loading ? "Logging in..." : "Login"}
+          </button>
+
+          {/* Signup switch */}
+          <p className="text-center text-base sm:text-xl font-medium mt-4 text-black">
+            Don't have an account?{" "}
+            <span
+              onClick={goSignup}
+              className="text-[#00CED1] cursor-pointer font-semibold"
+            >
+              Sign Up
+            </span>
+          </p>
+        </form>
       </div>
     </div>
   );
