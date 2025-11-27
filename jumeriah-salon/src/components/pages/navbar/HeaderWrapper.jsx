@@ -7,7 +7,9 @@ export default function HeaderWrapper() {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768); // MOBILE BREAKPOINT
+      // setIsMobile(window.innerWidth <= 768); // MOBILE BREAKPOINT
+      // MOBILE + TABLET VIEW
+      setIsMobile(window.innerWidth <= 1024);
     };
 
     handleResize(); // initial

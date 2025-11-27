@@ -1,12 +1,13 @@
 import React from "react";
+import Button from "./Button";
 
 // Replace this URL with your actual uploaded image path
-const bgImage = "url('/background.jpeg')";
+const bgImage = "url('/gallery/OFFER.jpeg')";
 
 export default function PromoSection() {
   return (
     <div
-      className="relative w-full h-[600px] bg-fixed bg-center bg-cover flex items-center justify-center mt-40"
+      className="relative w-full h-[600px] bg-fixed bg-center bg-contain flex items-center justify-center mt-40 bg-no-repeat"
       style={{ backgroundImage: bgImage }}
     >
       {/* Dark Overlay - essential for text readability over the image */}
@@ -27,7 +28,7 @@ export default function PromoSection() {
 
         {/* Sub Headline */}
         <h2 className="text-3xl md:text-5xl font-serif mb-10">
-          Quick Face Makeup
+          on all Services
         </h2>
 
         {/* Button */}
