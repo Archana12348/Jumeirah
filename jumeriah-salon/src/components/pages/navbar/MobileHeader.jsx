@@ -3,6 +3,7 @@ import { User, Heart, ShoppingCart, Menu, Wallet, X } from "lucide-react";
 import Button from "../../common/Button";
 import { useNavigate } from "react-router-dom";
 import LoginDrawer from "../../drawer/LoginDrawer";
+import GradientIcon from "../../common/GradientIcon";
 
 export default function MobileHeader() {
   const navigate = useNavigate();
@@ -68,7 +69,7 @@ export default function MobileHeader() {
         {/* HEADER */}
         <header
           className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
-            isScrolled ? "bg-[#00CED1] shadow-lg" : "bg-transparent"
+            isScrolled ? "bg-black shadow-lg" : "bg-transparent"
           }`}
         >
           <div
@@ -81,7 +82,7 @@ export default function MobileHeader() {
               src="/logo/logo.png"
               alt="Logo"
               className={`transition-all duration-300 ${
-                isScrolled ? "h-10" : "h-14"
+                isScrolled ? "h-12" : "h-14"
               }`}
             />
 
@@ -92,19 +93,20 @@ export default function MobileHeader() {
                 onClick={handleUserClick}
                 className="flex items-center gap-1 cursor-pointer"
               >
-                <User
-                  size={22}
-                  className={`transition ${
-                    isScrolled ? "text-yellow-800" : "text-white"
-                  }`}
-                />
+                {isScrolled ? (
+                  <GradientIcon icon={User} size={22} />
+                ) : (
+                  <User size={22} className="text-white" />
+                )}
 
                 {/* USERNAME */}
                 {isLoggedIn && (
                   <span
                     className={`
                    ${
-                     isScrolled ? "text-yellow-800" : "text-white"
+                     isScrolled
+                       ? "bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-600 text-transparent bg-clip-text"
+                       : "text-white"
                    } text-[20px] font-medium
                    `}
                   >
@@ -151,12 +153,11 @@ export default function MobileHeader() {
 
               {/* HEART ICON + COUNT */}
               <div className="relative">
-                <Heart
-                  size={22}
-                  className={`transition ${
-                    isScrolled ? "text-yellow-800" : "text-white"
-                  }`}
-                />
+                {isScrolled ? (
+                  <GradientIcon icon={Heart} size={22} />
+                ) : (
+                  <Heart size={22} className="text-white" />
+                )}
 
                 <span className="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] px-1 py-[1px] rounded-full">
                   {wishlistCount}
@@ -164,7 +165,7 @@ export default function MobileHeader() {
               </div>
 
               {/* CART ICON + COUNT */}
-              <div className="relative">
+              {/* <div className="relative">
                 <ShoppingCart
                   size={22}
                   className={`transition ${
@@ -175,9 +176,9 @@ export default function MobileHeader() {
                 <span className="absolute -top-2 -right-2 bg-yellow-500 text-black text-[10px] px-1 py-[1px] rounded-full">
                   {cartCount}
                 </span>
-              </div>
+              </div> */}
               {/* Wallet ICON + COUNT */}
-              <div className="relative">
+              {/* <div className="relative">
                 <Wallet
                   size={22}
                   className={`transition ${
@@ -188,7 +189,7 @@ export default function MobileHeader() {
                 <span className="absolute -top-2 -right-2 bg-green-500 text-black text-[10px] px-1 py-[1px] rounded-full">
                   {walletBalance}
                 </span>
-              </div>
+              </div> */}
 
               {/* MENU */}
               <Menu

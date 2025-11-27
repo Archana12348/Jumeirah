@@ -7,7 +7,7 @@ export default function FooterPage() {
       className="w-full bg-center bg-cover bg-no-repeat bottom-0 left-0 right-0 z-0 border-t-2 mt-10 
                  text-gray-200 font-serif  relative"
       style={{
-        backgroundImage: `linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('/banner2.jpg')`,
+        backgroundImage: `linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('/ky footer banner.jpg')`,
       }}
     >
       {/* Top Section */}
@@ -17,14 +17,12 @@ export default function FooterPage() {
           <h2 className="text-2xl font-semibold mb-4 text-white">
             Our Location
           </h2>
-
           <p className="font-semibold mt-2">India Office</p>
-          <p>Mumbai, 400001</p>
-          <p>Marine Drive, Maharashtra</p>
-
-          <p className="font-semibold mt-4">Dubai Office</p>
+          <p>📍 Address: Lavie Jumeirah PPR Market,</p>
+          <p>Shop No. A1 Mithapur Road,</p> Jalandhar, Punjab
+          {/* <p className="font-semibold mt-4">Dubai Office</p>
           <p>Dubai Marina</p>
-          <p>United Arab Emirates</p>
+          <p>United Arab Emirates</p> */}
         </div>
 
         {/* Contact */}
@@ -32,8 +30,8 @@ export default function FooterPage() {
           <h2 className="text-2xl font-semibold mb-4 text-white">
             Get in Touch
           </h2>
-          <p>phone: +12 9 8765 43</p>
-          <p>info@themeperch.net</p>
+          <p>phone: +91 90413 69160</p>
+          <p>kylaviejum@gmail.com</p>
 
           <div className="flex items-center justify-center gap-4 mt-4 text-xl">
             <FaFacebookF
@@ -52,9 +50,8 @@ export default function FooterPage() {
           <h2 className="text-2xl font-semibold mb-4 text-white">
             Working Hours
           </h2>
-          <p>Mon-Fri: 10:00AM - 9:00PM</p>
-          <p>Saturday: 10:00 AM - 7:00 PM</p>
-          <p>Sunday: 10:00 PM - 7:00 PM</p>
+          <p>Regular: 9:00 AM – 9:00 PM</p>
+          <p>Winter: 10:00 AM – 8:00 PM</p>
         </div>
       </div>
 
@@ -97,8 +94,47 @@ export default function FooterPage() {
 
       {/* Footer Bottom */}
       <p className="text-center text-sm pb-10">
-        Copyright 2025 Reine. All right reserved
+        Copyright 2025 Powered By KY. All right reserved
       </p>
     </div>
   );
+}
+
+{
+  /* <div class="row justify-content-center mb-5">
+  <div class="col-md-8">
+    <label
+      class="fw-semibold mb-3 d-block"
+      style="color:#228b22; font-size:1.1rem;"
+    >
+      Upload Images
+    </label>
+
+    <div
+      id="uploadBox"
+      class="position-relative border border-2 border-success rounded-3 p-5 text-center"
+      style="background: linear-gradient(135deg, #f8fbff 0%, #f1fff8 100%);
+            transition: all 0.3s ease; cursor: pointer; width:300px;"
+      ondragover="this.style.backgroundColor='#ecfdf3'"
+      ondragleave="this.style.backgroundColor='#f8fbff'"
+    >
+      <div class="mb-3">
+        <i
+          class="fa fa-cloud-upload-alt text-success"
+          style="font-size: 48px;"
+        ></i>
+      </div>
+
+      <h6 class="text-muted mb-1">Drag & drop images here</h6>
+      <p class="text-muted mb-0">or click to browse from your device</p>
+
+      <input id="imageInput" type="file" multiple />
+    </div>
+
+    <div
+      id="preview"
+      style="margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap;"
+    ></div>
+  </div>
+</div>; */
 }
