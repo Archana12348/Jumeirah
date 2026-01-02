@@ -2,34 +2,35 @@ import React from "react";
 import Button from "./Button";
 
 // Replace this URL with your actual uploaded image path
-const bgImage = "url('/gallery/OFFER.jpeg')";
+const bgImage = "url('/gallery/offerrrr.jpeg')";
 
 export default function PromoSection() {
   return (
     <div
-      className="relative w-full h-[600px] bg-fixed bg-center bg-contain flex items-center justify-center mt-40 bg-no-repeat"
+      className="relative w-full h-[600px] bg-fixed bg-center bg-cover flex items-center justify-center bg-no-repeat"
       style={{ backgroundImage: bgImage }}
     >
       {/* Dark Overlay - essential for text readability over the image */}
       <div className="absolute inset-0 bg-black/30"></div>
 
       {/* Content Container */}
-      <div className="relative z-10 text-center text-white px-4">
+      <div
+        className="relative z-10 text-center bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-600 text-transparent bg-clip-text px-4"
+        style={{ fontFamily: "var(--font-heading--family)" }}
+      >
         {/* Top Label */}
-        <p className="text-sm md:text-base font-semibold tracking-[0.2em] uppercase mb-4">
+        <p className="text-sm md:text-base  tracking-[0.2em] uppercase mb-4">
           This Week Only
         </p>
 
         {/* Main Headline - Mixing fonts to match image */}
         <h1 className="text-5xl md:text-7xl mb-4">
-          <span className="font-serif">Get</span>{" "}
-          <span className="font-bold font-sans">30% OFF</span>
+          <span className="">Get</span>{" "}
+          <span className="font-bold ">30% OFF</span>
         </h1>
 
         {/* Sub Headline */}
-        <h2 className="text-3xl md:text-5xl font-serif mb-10">
-          on all Services
-        </h2>
+        <h2 className="text-3xl md:text-5xl  mb-10">on all Services</h2>
 
         {/* Button */}
         <button className="border border-white px-8 py-3 text-sm font-bold tracking-widest uppercase hover:bg-white hover:text-black transition-all duration-300">

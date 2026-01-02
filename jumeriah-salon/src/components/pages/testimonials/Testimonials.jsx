@@ -26,13 +26,18 @@ export default function LuxuryTestimonials() {
   ];
 
   return (
-    <div className="py-14 sm:py-20 text-black px-4 sm:px-6">
+    <div
+      className="py-14 sm:py-20  px-4 sm:px-6"
+      style={{
+        backgroundImage:
+          "linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url('/whychoose/bgchoose.jpeg')",
+        fontFamily: "var(--font-heading--family)",
+      }}
+    >
       {/* Heading */}
-      <div className="text-center mb-10 sm:mb-14">
-        <p className="text-xs sm:text-sm tracking-[3px] text-gray-600">
-          OUR CLIENTS
-        </p>
-        <h2 className="text-2xl sm:text-4xl font-serif tracking-wide mt-2">
+      <div className="text-center mb-10 sm:mb-14 bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-600 text-transparent bg-clip-text">
+        <p className="text-xs sm:text-sm tracking-[3px] ">OUR CLIENTS</p>
+        <h2 className="text-2xl sm:text-4xl  tracking-wide mt-2">
           LOVE LETTERS
         </h2>
       </div>
@@ -40,8 +45,8 @@ export default function LuxuryTestimonials() {
       {/* Two-tone Background */}
       <div className="relative mx-auto max-w-6xl w-full ">
         <div className="absolute inset-0 grid grid-cols-2">
-          <div className="bg-white"></div>
-          <div className="bg-[#00CED1]"></div>
+          <div className="bg-yellow-600"></div>
+          <div className="bg-black"></div>
         </div>
 
         {/* Swiper Section */}
@@ -60,7 +65,7 @@ export default function LuxuryTestimonials() {
         >
           {reviews.map((item, i) => (
             <SwiperSlide key={i}>
-              <div className="relative z-10 text-center max-w-3xl mx-auto px-2 sm:px-4">
+              <div className="relative z-10 text-center py-9 max-w-3xl mx-auto px-2 sm:px-4">
                 {/* Stars */}
                 <div className="flex justify-center gap-1 mb-4 sm:mb-6">
                   {[1, 2, 3, 4, 5].map((s) => (
@@ -74,7 +79,7 @@ export default function LuxuryTestimonials() {
                 </div>
 
                 {/* Text */}
-                <p className="text-black text-sm sm:text-lg leading-relaxed">
+                <p className="text-white text-sm sm:text-lg leading-relaxed">
                   “{item.text}”
                 </p>
 
@@ -84,10 +89,10 @@ export default function LuxuryTestimonials() {
                     src={item.image}
                     className="w-14 h-14 sm:w-20 sm:h-20 rounded-full object-cover border border-gray-400"
                   />
-                  <h3 className="mt-3 sm:mt-4 text-base sm:text-lg font-semibold tracking-widest">
+                  <h3 className="mt-3 text-white sm:mt-4 text-base sm:text-lg font-semibold tracking-widest">
                     {item.name}
                   </h3>
-                  <p className="text-[#d4af37] text-xs sm:text-sm tracking-[2px]">
+                  <p className="text-white text-xs sm:text-sm tracking-[2px]">
                     {item.role}
                   </p>
                 </div>

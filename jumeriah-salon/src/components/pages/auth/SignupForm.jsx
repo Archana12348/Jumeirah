@@ -40,8 +40,8 @@ export default function SignupForm({ goLogin }) {
         {/* Signup */}
         <button
           className="w-full bg-[#00CED1]  bg-gradient-to-r from-[#00CED1] to-black
-      text-white scale-[1.03]
-      hover:border-[#00CED1]/70  font-semibold py-2 rounded-lg hover:bg-[#0fbec4] transition"
+         text-white scale-[1.03]
+         hover:border-[#00CED1]/70  font-semibold py-2 rounded-lg hover:bg-[#0fbec4] transition"
         >
           Sign Up
         </button>

@@ -4,6 +4,7 @@ import MainLayout from "../components/pages/layout/Layout";
 import Home from "../components/pages/layout/Home";
 import Contact from "../components/pages/ContactUs";
 import ServiceDetailPage from "../components/pages/servicehome/ServiceDetailPage";
+import BridalMakeupDetail from "../components/pages/servicehome/BridalMakeupDetail";
 
 export default function AppRoutes() {
   return (
@@ -15,6 +16,7 @@ export default function AppRoutes() {
           <Route index element={<Home />} />
           <Route path="contact" element={<Contact />} />
           <Route path="services" element={<ServiceDetailPage />} />
+          <Route path="services/viewmore" element={<BridalMakeupDetail />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -149,26 +149,31 @@ export default function MakeupCategories() {
       name: "Bridal Makeup",
       img: "/service/makeup/makeup1.webp",
       price: "₹5500",
+      tag: "Premier",
     },
     {
       name: "Party Makeup",
       img: "/service/makeup/party2.webp",
       price: "₹3500",
+      tag: "Basic",
     },
     {
       name: "Haldi Makeup",
       img: "/service/makeup/haldi2.webp",
       price: "₹2500",
+      tag: "Feminine",
     },
     {
       name: "Engagement Makeup",
       img: "/service/makeup/reception.webp",
       price: "₹4500",
+      tag: "Signature",
     },
     {
       name: "Haldi Makeup",
       img: "/service/makeup/haldi2.webp",
       price: "₹2500",
+      tag: "Basic",
     },
   ];
 
@@ -222,12 +227,25 @@ export default function MakeupCategories() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-10">
         {categories.map((item, index) => (
-          <div key={index} className="group">
-            {/* IMAGE */}
+          <div key={index} className="group relative">
+            {/* IMAGE WRAPPER */}
             <div
               className="w-full h-96 overflow-hidden border border-black rounded-md 
-            transition-all duration-500 group-hover:shadow-[0_0_25px_rgba(0,0,0,0.6)]"
+             relative transition-all duration-500 group-hover:shadow-[0_0_25px_rgba(0,0,0,0.6)]"
             >
+              {/* BADGE */}
+              <span
+                className="
+                  absolute top-3 left-3 
+                 bg-yellow-600 text-white 
+                  text-sm font-semibold 
+                  px-3 py-1 rounded-md 
+                  shadow-lg
+                 "
+              >
+                {item.tag}
+              </span>
+
               <img
                 src={item.img}
                 alt={item.name}

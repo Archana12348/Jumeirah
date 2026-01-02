@@ -8,7 +8,7 @@ import LocationsSection from "../common/Location";
 export default function ContactPage() {
   return (
     <>
-      <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-[auto_2fr] gap-12 px-6 mt-60 md:w-[90%] lg:w-[85%] xl:w-[80%] font-serif text-gray-700">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-[auto_2fr] gap-12 px-6 mt-60 md:w-[90%] lg:w-[85%] xl:w-[80%] font-serif text-gray-700">
         {/* Left Section */}
         <div>
           <h2 className="text-3xl font-semibold mb-6">Our Location:</h2>
