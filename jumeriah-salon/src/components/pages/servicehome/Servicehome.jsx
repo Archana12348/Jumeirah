@@ -68,12 +68,19 @@ const services = [
 
 export default function ServicesSection() {
   return (
-    <div className="w-full py-16 sm:py-20 md:py-24 bg-white">
+    <div
+      className="w-full py-16 sm:py-20 md:py-24 "
+      style={{
+        backgroundImage:
+          "linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url('/whychoose/bgchoose.jpeg')",
+        fontFamily: "var(--font-heading--family)",
+      }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
         {/* Section Heading */}
         <h2
-          className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-10 sm:mb-12 md:mb-16 text-black"
-          style={{ fontFamily: "Scheherazade New" }}
+          className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-10 sm:mb-12 md:mb-16 bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-600 text-transparent bg-clip-text"
+          style={{ fontFamily: "var(--font-heading--family)" }}
         >
           Our Premium Services
         </h2>
@@ -92,7 +99,7 @@ export default function ServicesSection() {
           {services.map((item) => (
             <div
               key={item.name}
-              className="flex flex-col items-center text-center"
+              className="flex flex-col items-center text-center "
             >
               {/* Frame Wrapper Responsive */}
               <div
@@ -126,21 +133,24 @@ export default function ServicesSection() {
               </div>
 
               {/* Name */}
-              <p className="mt-4 sm:mt-5 text-lg sm:text-base md:text-xl font-semibold text-gray-700 in-hover:text-[#2e2102] ">
+              <p
+                className="mt-4 sm:mt-5 text-lg sm:text-base md:text-xl  bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-600 text-transparent bg-clip-text "
+                style={{ fontFamily: "var(--font-heading--family)" }}
+              >
                 {item.name}
               </p>
               {/* <p
                 className="
-    mt-4 sm:mt-5 
-    text-sm sm:text-base md:text-xl 
-    font-semibold 
-    text-gray-700 
-    hover:text-[#2e2102]
-    transform 
-    transition 
-    duration-300 
-    hover:scale-110
-  "
+            mt-4 sm:mt-5 
+             text-sm sm:text-base md:text-xl 
+             font-semibold 
+             text-gray-700 
+             hover:text-[#2e2102]
+             transform 
+             transition 
+            duration-300 
+            hover:scale-110
+            "
               >
                 {item.name}
               </p> */}

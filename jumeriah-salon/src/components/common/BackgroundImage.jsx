@@ -1,6 +1,6 @@
 // src/components/common/BackgroundSection.jsx
 export default function BackgroundSection({
-  bgImage = "/banner2.jpg",
+  bgImage = "/banner4.jpeg",
   overlay = true,
   height = "630px",
   children,
@@ -11,7 +11,7 @@ export default function BackgroundSection({
       style={{
         height,
         backgroundImage: `${
-          overlay ? `linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),` : ""
+          overlay ? `linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)),` : ""
         } url('${bgImage}')`,
       }}
     >

@@ -4,6 +4,9 @@ import Button from "../../common/Button";
 import { useNavigate } from "react-router-dom";
 import LoginDrawer from "../../drawer/LoginDrawer";
 import GradientIcon from "../../common/GradientIcon";
+import DropdownMenu from "./DropdownMenu"; // <-- Tumhara dropdown component
+import { Link } from "react-router-dom";
+import { ChevronDown } from "lucide-react";
 
 export default function MobileHeader() {
   const navigate = useNavigate();
@@ -17,6 +20,7 @@ export default function MobileHeader() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const mobileDropdownRef = useRef(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [serviceOpen, setServiceOpen] = useState(false);
   // 🔥 Scroll Effect
   useEffect(() => {
     const handleScroll = () => {
@@ -59,7 +63,7 @@ export default function MobileHeader() {
       <div className="relative ">
         {/* Banner Image (auto height & contain) */}
         <img
-          src="/banner2.jpg"
+          src="/banner5.jpeg"
           alt="Banner"
           className="w-full h-auto object-contain"
           style={{
@@ -208,7 +212,7 @@ export default function MobileHeader() {
         </header>
 
         {/* HERO TEXT */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-6 mt-14 ">
+        {/* <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-6 mt-14 ">
           <h1
             className="text-xl font-bold fade-animate
              bg-gradient-to-r from-white via-[#20F6FF] to-white
@@ -220,6 +224,17 @@ export default function MobileHeader() {
             La Vie Jumeirah
           </h1>
           <AnimatedTagline />
+        </div> */}
+        <div className="absolute inset-0 flex flex-col items-center justify-end pb-6 text-black text-center px-4">
+          <div className="flex flex-col gap-3  max-w-xs">
+            <button className="px-3 py-2 text-sm rounded-xl border-2 bg-[#00CDE1] border-[#00CED1]  backdrop-blur-sm">
+              View Services
+            </button>
+
+            <button className="px-3 py-2 text-sm rounded-xl border-2  bg-[#00CDE1] border-[#00CED1] backdrop-blur-sm">
+              Book an Appointment
+            </button>
+          </div>
         </div>
       </div>
 
@@ -237,7 +252,7 @@ export default function MobileHeader() {
           open ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        {/* CLOSE BUTTON */}
+        {/* Close Button */}
         <div className="flex justify-end mb-6">
           <X
             size={28}
@@ -247,21 +262,49 @@ export default function MobileHeader() {
         </div>
 
         <ul className="flex flex-col gap-5 text-[18px] font-medium text-gray-800">
-          {[
-            "Home",
-            "About Us",
-            "Services",
-            "Products",
-            "Gallery",
-            "Contact Us",
-          ].map((item) => (
-            <li
-              key={item}
-              className="pb-2 border-b border-gray-200 hover:text-[#00CED1] transition cursor-pointer"
+          {/* NORMAL LINKS */}
+          <li className="pb-2 border-b border-gray-200 hover:text-[#00CED1] transition cursor-pointer">
+            <Link to="/">Home</Link>
+          </li>
+
+          <li className="pb-2 border-b border-gray-200 hover:text-[#00CED1] transition cursor-pointer">
+            <Link to="/about">About Us</Link>
+          </li>
+
+          {/* SERVICES WITH DROPDOWN */}
+          <li className="pb-2 border-b border-gray-200 cursor-pointer">
+            <div
+              className="flex justify-between items-center hover:text-[#00CED1] transition"
+              onClick={() => setServiceOpen(!serviceOpen)}
             >
-              {item}
-            </li>
-          ))}
+              <span>Services</span>
+              <ChevronDown
+                size={22}
+                className={`${
+                  serviceOpen ? "rotate-180" : "rotate-0"
+                } transition`}
+              />
+            </div>
+
+            {/* DROPDOWN COMPONENT RENDER */}
+            {serviceOpen && (
+              <ul className="mt-3 pl-3 animate-fadeIn">
+                <DropdownMenu />
+              </ul>
+            )}
+          </li>
+
+          <li className="pb-2 border-b border-gray-200 hover:text-[#00CED1] transition cursor-pointer">
+            <Link to="/products">Products</Link>
+          </li>
+
+          <li className="pb-2 border-b border-gray-200 hover:text-[#00CED1] transition cursor-pointer">
+            <Link to="/gallery">Gallery</Link>
+          </li>
+
+          <li className="pb-2 border-b border-gray-200 hover:text-[#00CED1] transition cursor-pointer">
+            <Link to="/contact">Contact Us</Link>
+          </li>
         </ul>
 
         {/* BOOK APPOINTMENT BUTTON */}

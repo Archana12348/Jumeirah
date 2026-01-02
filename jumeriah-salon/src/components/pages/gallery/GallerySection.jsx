@@ -9,7 +9,7 @@ export default function SalonSection() {
   return (
     <section
       className="w-full bg-cover bg-contain bg-no-repeat bottom-0 left-0 right-0
-  z-0 border-t-2 py-10 text-gray-200 font-serif relative"
+      z-0 border-t-2 py-10 px-6 text-gray-200 font-serif relative"
       style={{
         backgroundImage: "url('/gallery/bg5.jpeg')",
       }}

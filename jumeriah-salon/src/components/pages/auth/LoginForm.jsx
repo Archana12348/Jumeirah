@@ -4,12 +4,12 @@ export default function LoginForm({ goSignup }) {
   return (
     <div
       className="w-full flex flex-col items-center mt-10"
-      style={{ fontFamily: "'Cairo', sans-serif" }}
+      style={{ fontFamily: "var(--font-heading--family)" }}
     >
       {/* Welcome Message */}
       <h2
         className="text-2xl font-bold  mb-6 text-center bg-gradient-to-r from-[#00CED1] via-white-400 to-gray-800 text-transparent bg-clip-text"
-        style={{ fontFamily: "Scheherazade New" }}
+        style={{ fontFamily: "var(--font-heading--family)" }}
       >
         Welcome Back! Login to Continue
       </h2>
